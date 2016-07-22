@@ -49,4 +49,15 @@ describe('Equipo', function () {
             rm.despedirJugador(messi.nombre)
         } ).toThrow(new Error('El jugador no esta actualmente contratado'))
     })
+
+    it('deberia devolverme una lista de jugadores', function () {
+        var messi = new Jugador('L. Messi')
+        var rm = new Equipo('Real Madrid', 25)
+
+        rm.contratarJugador(messi)
+
+        expect( function () {
+            rm.obtenerListaJugadores()
+        } )
+    })
 })
