@@ -1,6 +1,6 @@
 function Jugador (nombre, posicion) {
-    this.nombre = nombre
-    this.posicion = posicion
+    this.nombre = nombre.toUpperCase()
+    this.posicion = posicion || 'Delantero'
 }
 
 module.exports = Jugador

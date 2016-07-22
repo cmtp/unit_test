@@ -10,24 +10,43 @@ describe('Equipo', function () {
     })
 
     it('deberia contratar un jugador', function () {
-        var pepe = new Jugador('Pepe', 'defensa')
+        var ronaldo = new Jugador('Ronaldo')
+        var barcelona = new Equipo('Barcelona', 25)
 
-        var rm = new Equipo('Real Madrid', 25)
-        rm.contratarJugador(pepe)
-        var listaJugadores = rm.obtenerListaJugadores()
-
-        expect(listaJugadores.length).toBe(1)
-        expect(listaJugadores[0]).toBe(pepe)
+        barcelona.contratarJugador(ronaldo)
+        
+        expect(barcelona.jugadores[0]).toBe(ronaldo)
+        expect(barcelona.jugadores.length).toBe(1)
     })
 
     it('deberia lanzar un error al contratar mas de una vez al mismo jugador', function () {
-        var pepe = new Jugador('Pepe', 'defensa')
-
+        var messi = new Jugador('L. Messi')
         var rm = new Equipo('Real Madrid', 25)
-        rm.contratarJugador(pepe)
 
-        expect(function () {
-            rm.contratarJugador(pepe)
-        }).toThrow(new Error("El jugador ya esta contratado"))
+        rm.contratarJugador(messi)
+
+        expect(rm.jugadores.length).toBe(1)
+        expect( function () {
+            rm.contratarJugador(messi)
+        } ).toThrow(new Error('El jugador ya esta contratado'))
+    })
+
+    it('deberia despedir un jugador', function () {
+        var ronaldo = new Jugador('Ronaldo')
+        var rm = new Equipo('Real Madrid', 25)
+        
+        rm.contratarJugador(ronaldo)
+        expect(rm.jugadores.length).toBe(1)
+        
+        rm.despedirJugador(ronaldo.nombre)
+        expect(rm.jugadores.length).toBe(0)
+    })
+    
+    it('deberia salirme una excepcion', function () {
+        var messi = new Jugador('L. Messi')
+        var rm = new Equipo('Real Madrid', 25)
+        expect( function () {
+            rm.despedirJugador(messi.nombre)
+        } ).toThrow(new Error('El jugador no esta actualmente contratado'))
     })
 })
